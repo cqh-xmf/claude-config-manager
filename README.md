@@ -106,6 +106,33 @@ Shows:
 - Cold-start timing per MCP
 - Environment variable status (tokens set?)
 - Runtime versions (node, npx, python3, git)
+
+### Freshness check + Auto-update
+
+```bash
+mcp freshness    # Detect stale MCPs + discover new ones
+mcp update       # Auto-update everything (npm + agents + rules)
+```
+
+Checks npm for MCP package updates, scans GitHub for new community MCPs, verifies agent/rule freshness.
+
+### Harness Score
+
+```bash
+mcp score
+```
+
+Rates your setup 0-100 across 7 dimensions: MCP online rate, tokens configured, agents ready, rules active, templates, recipes, freshness.
+
+### Multi-tool recipes
+
+```bash
+mcp recipe list
+mcp recipe security-audit
+```
+
+Pre-configured workflows: `security-audit`, `pr-review`, `full-deploy`, `doc-sprint`, `new-feature`, `open-source-release`, `ui-sprint`.
+- Runtime versions (node, npx, python3, git)
 - Config file presence
 
 ---

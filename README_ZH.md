@@ -88,6 +88,32 @@ mcp health
 
 显示：活跃 MCP 列表、冷启动耗时、环境变量状态、运行时版本、配置文件状态。
 
+### 保鲜检查 + 自动更新
+
+```bash
+mcp freshness    # 检测过期 MCP + 发现新 MCP
+mcp update       # 一键自动更新全部（npm + agents + rules）
+```
+
+检查 npm 上 MCP 包的最新版本，扫描 GitHub 发现社区新 MCP，验证 agent/rule 是否有上游更新。
+
+### Harness Score 评分
+
+```bash
+mcp score
+```
+
+7 维度 0-100 评分：MCP 在线率、Token 配置、Agent 就绪、Rules 生效、模板、配方、保鲜度。
+
+### 多工具配方
+
+```bash
+mcp recipe list
+mcp recipe security-audit
+```
+
+预配置工作流：`security-audit`、`pr-review`、`full-deploy`、`doc-sprint`、`new-feature`、`open-source-release`、`ui-sprint`。
+
 ---
 
 ## 原理

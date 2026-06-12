@@ -1,0 +1,114 @@
+{
+  "_usage": "These 17 MCPs are NOT auto-loaded. When you need one, copy its block into ~/.claude/settings.json → mcpServers. Restart Claude Code to activate.",
+  "_smokeTestDate": "2026-06-13",
+  "mcpServers": {
+    "exa-web-search": {
+      "command": "npx",
+      "args": ["-y", "exa-mcp-server"],
+      "env": { "EXA_API_KEY": "${EXA_API_KEY}" },
+      "description": "AI deep search. Needs: EXA_API_KEY (exa.ai)"
+    },
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "@tavily/mcp-server-tavily"],
+      "env": { "TAVILY_API_KEY": "${TAVILY_API_KEY}" },
+      "description": "Agent-optimized search. Needs: TAVILY_API_KEY (tavily.com)"
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-brave-search"],
+      "env": { "BRAVE_API_KEY": "${BRAVE_API_KEY}" },
+      "description": "Privacy-first search. Needs: BRAVE_API_KEY (brave.com/search/api)"
+    },
+    "fal-ai": {
+      "command": "npx",
+      "args": ["-y", "fal-ai-mcp-server"],
+      "env": { "FAL_KEY": "${FAL_KEY}" },
+      "description": "AI image/video/audio generation. Needs: FAL_KEY (fal.ai)"
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-figma"],
+      "env": { "FIGMA_PERSONAL_ACCESS_TOKEN": "${FIGMA_PERSONAL_ACCESS_TOKEN}" },
+      "description": "Figma design integration. Needs: FIGMA_PERSONAL_ACCESS_TOKEN"
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-notion"],
+      "env": { "NOTION_API_TOKEN": "${NOTION_API_TOKEN}" },
+      "description": "Notion knowledge base. Needs: NOTION_API_TOKEN"
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@zencoder/mcp-server-slack"],
+      "env": { "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}" },
+      "description": "Slack messaging. Needs: SLACK_BOT_TOKEN"
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-linear"],
+      "env": { "LINEAR_API_KEY": "${LINEAR_API_KEY}" },
+      "description": "Linear PM. Needs: LINEAR_API_KEY"
+    },
+    "jira": {
+      "command": "uvx",
+      "args": ["mcp-atlassian==0.21.0"],
+      "env": { "JIRA_URL": "${JIRA_URL}", "JIRA_EMAIL": "${JIRA_EMAIL}", "JIRA_API_TOKEN": "${JIRA_API_TOKEN}" },
+      "description": "Jira tracking. Needs: uvx (pip install uv), JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN"
+    },
+    "confluence": {
+      "command": "npx",
+      "args": ["-y", "confluence-mcp-server"],
+      "env": { "CONFLUENCE_BASE_URL": "${CONFLUENCE_BASE_URL}", "CONFLUENCE_EMAIL": "${CONFLUENCE_EMAIL}", "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}" },
+      "description": "Confluence wiki. Needs: CONFLUENCE_* env vars"
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--project-ref=${SUPABASE_PROJECT_REF}"],
+      "description": "Supabase DB. Needs: SUPABASE_PROJECT_REF"
+    },
+    "vercel": {
+      "type": "http",
+      "url": "https://mcp.vercel.com",
+      "description": "Vercel deploy. HTTP-based, needs Vercel account auth."
+    },
+    "cloudflare-docs": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "description": "Cloudflare docs search. HTTP-based."
+    },
+    "clickhouse": {
+      "type": "http",
+      "url": "https://mcp.clickhouse.cloud/mcp",
+      "description": "ClickHouse analytics. HTTP-based."
+    },
+    "browserbase": {
+      "command": "npx",
+      "args": ["-y", "@browserbasehq/mcp-server-browserbase"],
+      "env": { "BROWSERBASE_API_KEY": "${BROWSERBASE_API_KEY}" },
+      "description": "Cloud browser. Needs: BROWSERBASE_API_KEY"
+    },
+    "browser-use": {
+      "type": "http",
+      "url": "https://api.browser-use.com/mcp",
+      "headers": { "x-browser-use-api-key": "${BROWSER_USE_API_KEY}" },
+      "description": "AI browser agent. Needs: BROWSER_USE_API_KEY"
+    },
+    "longhand": {
+      "command": "longhand",
+      "args": ["mcp-server"],
+      "description": "Session history index. Needs: pip install longhand && longhand setup"
+    },
+    "evalview": {
+      "command": "python3",
+      "args": ["-m", "evalview", "mcp", "serve"],
+      "env": { "OPENAI_API_KEY": "${OPENAI_API_KEY}" },
+      "description": "Agent regression testing. Needs: pip install evalview>=0.5,<1"
+    },
+    "devfleet": {
+      "type": "http",
+      "url": "http://localhost:18801/mcp",
+      "description": "Multi-agent orchestration. Needs: devfleet server running locally."
+    }
+  }
+}

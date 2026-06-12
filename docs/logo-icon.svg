@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Claude Code Harness icon">
+  <defs>
+    <linearGradient id="hubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="centerGrad" x1="50%" y1="50%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#0f172a"/>
+
+  <!-- Outer orbit ring -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="url(#ringGrad)" stroke-width="1.5" opacity="0.2"/>
+  <circle cx="256" cy="256" r="140" fill="none" stroke="url(#ringGrad)" stroke-width="1" opacity="0.15" stroke-dasharray="8 12"/>
+
+  <!-- Connecting lines -->
+  <g stroke="url(#ringGrad)" stroke-width="2.5" opacity="0.4" fill="none" stroke-linecap="round">
+    <line x1="256" y1="256" x2="256" y2="76"/>
+    <line x1="256" y1="256" x2="383" y2="129"/>
+    <line x1="256" y1="256" x2="436" y2="256"/>
+    <line x1="256" y1="256" x2="383" y2="383"/>
+    <line x1="256" y1="256" x2="256" y2="436"/>
+    <line x1="256" y1="256" x2="129" y2="383"/>
+    <line x1="256" y1="256" x2="76"  y2="256"/>
+    <line x1="256" y1="256" x2="129" y2="129"/>
+  </g>
+
+  <!-- 8 nodes (varying sizes = different MCP roles) -->
+  <g filter="url(#glow)">
+    <!-- Large nodes (primary MCPs) -->
+    <circle cx="256" cy="76"  r="16" fill="url(#hubGrad)"/>   <!-- top: memory -->
+    <circle cx="436" cy="256" r="16" fill="url(#hubGrad)"/>   <!-- right: github -->
+    <circle cx="256" cy="436" r="16" fill="url(#hubGrad)"/>   <!-- bottom: context7 -->
+    <circle cx="76"  cy="256" r="16" fill="url(#hubGrad)"/>   <!-- left: playwright -->
+
+    <!-- Medium nodes -->
+    <circle cx="383" cy="129" r="12" fill="url(#hubGrad)" opacity="0.85"/>  <!-- top-right -->
+    <circle cx="383" cy="383" r="12" fill="url(#hubGrad)" opacity="0.85"/>  <!-- bottom-right -->
+    <circle cx="129" cy="383" r="12" fill="url(#hubGrad)" opacity="0.85"/>  <!-- bottom-left -->
+    <circle cx="129" cy="129" r="12" fill="url(#hubGrad)" opacity="0.85"/>  <!-- top-left -->
+  </g>
+
+  <!-- Center hub -->
+  <circle cx="256" cy="256" r="38" fill="#0f172a" stroke="url(#centerGrad)" stroke-width="3"/>
+  <circle cx="256" cy="256" r="30" fill="url(#centerGrad)" opacity="0.15"/>
+
+  <!-- "C" monogram in center -->
+  <text x="256" y="272" text-anchor="middle" fill="url(#centerGrad)" font-family="'Segoe UI', system-ui, sans-serif" font-size="34" font-weight="600" letter-spacing="2">C</text>
+</svg>

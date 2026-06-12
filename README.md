@@ -5,6 +5,10 @@
 </p>
 
 <p align="center">
+  <img src="docs/logo-icon.svg" width="120" alt="Claude Config Manager">
+</p>
+
+<p align="center">
   <b>Manage Claude Code MCP servers like a package manager.</b><br>
   Enable · Disable · Health check · Performance baseline · One-click toggle
 </p>

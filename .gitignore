@@ -1,0 +1,19 @@
+# Claude Config Manager .gitignore
+
+# Never commit real settings
+settings.json
+*.backup.*
+*.bak
+
+# Node / OS
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.pem
+*.key
+
+# Logs
+*.log

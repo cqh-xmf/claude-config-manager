@@ -1,0 +1,47 @@
+{
+  "_description": "Tool Recipes — pre-defined MCP + Agent combinations for common workflows. Use: mcp recipe <name>",
+  "recipes": {
+    "security-audit": {
+      "description": "Full security audit of a codebase",
+      "tools": ["security-reviewer", "opensource-sanitizer", "silent-failure-hunter"],
+      "mode": "sequential",
+      "output": "Combined security report with vulnerability list and fix recommendations"
+    },
+    "pr-review": {
+      "description": "Complete pull request review (quality + security + performance)",
+      "tools": ["code-reviewer", "security-reviewer", "performance-optimizer"],
+      "mode": "parallel",
+      "output": "PR review summary with categorized findings"
+    },
+    "full-deploy": {
+      "description": "Test → build → deploy pipeline",
+      "tools": ["tdd-guide", "e2e-runner", "build-error-resolver"],
+      "mode": "sequential",
+      "output": "Deployment-ready code with passing tests"
+    },
+    "doc-sprint": {
+      "description": "Generate comprehensive documentation",
+      "tools": ["doc-updater", "doc-coauthoring"],
+      "mode": "sequential",
+      "output": "Updated docs + generated slides/reports"
+    },
+    "new-feature": {
+      "description": "Plan → implement → test → review a new feature",
+      "tools": ["planner", "tdd-guide", "code-reviewer"],
+      "mode": "sequential",
+      "output": "Implemented feature with tests and review passed"
+    },
+    "open-source-release": {
+      "description": "Prepare a project for open-source release",
+      "tools": ["opensource-forker", "opensource-sanitizer", "opensource-packager"],
+      "mode": "sequential",
+      "output": "Sanitized codebase with LICENSE, README, CONTRIBUTING, and issue templates"
+    },
+    "ui-sprint": {
+      "description": "Design → build → animate → test a UI feature",
+      "tools": ["frontend-design", "ui-animation", "webapp-testing"],
+      "mode": "sequential",
+      "output": "Production-ready UI component with animations and tests"
+    }
+  }
+}

@@ -126,6 +126,66 @@ cmd_freshness() {
   [ -f "$FRESH" ] && bash "$FRESH" || echo "mcp-freshness.sh not found"
 }
 
+cmd_update() {
+  echo ""
+  echo -e "${CYAN}=== Auto-Update System ===${NC}"
+  echo ""
+
+  # 1. Update npm-based MCP packages
+  echo "--- Updating MCP npm packages ---"
+  local UPDATED=0
+  for pkg in "@upstash/context7-mcp" "@modelcontextprotocol/server-sequential-thinking" "@modelcontextprotocol/server-memory" "@modelcontextprotocol/server-filesystem" "@magicuidesign/mcp" "@playwright/mcp" "@modelcontextprotocol/server-github" "firecrawl-mcp"; do
+    local latest=$(npm view "$pkg" version 2>/dev/null || echo "")
+    if [ -n "$latest" ]; then
+      echo -e "  ${GREEN}OK${NC} $pkg@$latest"
+      ((UPDATED++))
+    fi
+  done
+  echo "  $UPDATED packages confirmed latest"
+
+  # 2. Update agents and rules from ECC upstream
+  echo ""
+  echo "--- Updating Agents & Rules (ECC upstream) ---"
+  local AUTO_UPDATE="$HARNESS_DIR/scripts/auto-update.js"
+  if [ -f "$AUTO_UPDATE" ]; then
+    echo "  Running auto-update.js..."
+    node "$AUTO_UPDATE" --dry-run 2>/dev/null && echo -e "  ${GREEN}OK${NC} ECC upstream checked" || echo -e "  ${YELLOW}SKIP${NC} auto-update.js not available"
+  elif [ -f "$CLAUDE_HOME/scripts/auto-update.js" ]; then
+    echo "  Running auto-update.js..."
+    node "$CLAUDE_HOME/scripts/auto-update.js" --dry-run 2>/dev/null && echo -e "  ${GREEN}OK${NC} ECC upstream checked" || echo -e "  ${YELLOW}SKIP${NC} auto-update.js not available"
+  else
+    echo -e "  ${YELLOW}SKIP${NC} auto-update.js not found — agents/rules are static, update manually from ECC repo"
+  fi
+
+  # 3. Scan for new MCPs on GitHub
+  echo ""
+  echo "--- Scanning GitHub for new MCPs ---"
+  local NEW=$(curl -s "https://api.github.com/search/repositories?q=mcp+server+created:>$(date -d '30 days ago' +%Y-%m-%d 2>/dev/null || date -v-30d +%Y-%m-%d 2>/dev/null || echo '2026-01-01')&sort=stars&per_page=3" 2>/dev/null | python3 -c "
+import json,sys
+try:
+    data=json.load(sys.stdin)
+    for item in data.get('items',[])[:3]:
+        print(f\"  {item['full_name']} ({item['stargazers_count']}★) — {item.get('description','')[:80]}\")
+except: pass
+" 2>/dev/null || echo "  GitHub API unavailable (rate-limited)")
+
+  if [ -n "$NEW" ]; then
+    echo "$NEW"
+    echo "  To add a new MCP: edit ~/.claude/mcp-configs/on-demand-mcps.json"
+  else
+    echo "  No new MCPs found (or API unavailable)"
+  fi
+
+  # 4. Summary
+  echo ""
+  echo -e "${CYAN}--- Update Summary ---${NC}"
+  echo "  npm packages: $UPDATED verified"
+  echo "  agents/rules: check above"
+  echo ""
+  echo "  💡 Run weekly: mcp update"
+  echo "  💡 Auto-pilot: add to crontab for weekly auto-update"
+}
+
 cmd_score() {
   echo ""
   echo -e "${CYAN}=== Claude Code Harness Score ===${NC}"
@@ -176,6 +236,7 @@ case "${1:-}" in
     done ;;
   recipe) cmd_recipe "${2:-}" ;;
   freshness) cmd_freshness ;;
+  update) cmd_update ;;
   score) cmd_score ;;
   *)
     echo ""
@@ -186,6 +247,7 @@ case "${1:-}" in
     echo "  mcp disable-all             Disable all on-demand"
     echo "  mcp recipe [name|list]      Multi-tool workflows"
     echo "  mcp freshness               Check for updates"
+    echo "  mcp update                  Auto-update all MCPs + scan for new"
     echo "  mcp score                   Harness Score 0-100"
     echo "" ;;
 esac

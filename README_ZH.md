@@ -1,5 +1,9 @@
 # Claude Config Manager（中文）
 
+<p align="right">
+  <a href="README.md">English</a>
+</p>
+
 <p align="center">
   <b>像包管理器一样管理 Claude Code 的 MCP 服务器。</b><br>
   启用 · 禁用 · 健康检查 · 性能基线 · 一键开关

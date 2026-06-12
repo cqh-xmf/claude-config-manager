@@ -1,5 +1,9 @@
 # Claude Config Manager
 
+<p align="right">
+  <a href="README_ZH.md">中文</a>
+</p>
+
 <p align="center">
   <b>Manage Claude Code MCP servers like a package manager.</b><br>
   Enable · Disable · Health check · Performance baseline · One-click toggle
